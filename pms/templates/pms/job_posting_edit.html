@@ -1,0 +1,7 @@
+<h2>Edit Job Posting</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+  </form>
+  <a href="{% url 'posted_jobs' %}">Back to Your Posted Jobs</a>

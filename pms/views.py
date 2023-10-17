@@ -30,10 +30,10 @@ def registration(request):
             login(request, user)
             if user.is_student():
                 # Redirect to the student dashboard or another view
-                return redirect('index')
+                return redirect('student_dashboard')
             elif user.is_company():
                 # Redirect to the company dashboard or another view
-                return redirect('index1')
+                return redirect('company_dashboard')
     else:
         form = RegistrationForm()
     return render(request, 'pms/registration.html', {'form': form})
@@ -161,6 +161,26 @@ def job_applications(request):
     else:
         return render(request, 'access_denied.html')  # Customize this template
 
+#listing posted jobs company user
+def company_job_postings(request):
+    if request.user.is_company:
+        # Retrieve job postings associated with the current company
+        job_postings = JobPosting.objects.filter(company=request.user.companyprofile)
+        return render(request, 'pms/company_job_postings.html', {'job_postings': job_postings})
+    else:
+        return render(request, 'access_denied.html')
+    
+#edit view for posted jobs
+def edit_job_posting(request, job_id):
+    job = get_object_or_404(JobPosting, pk=job_id)
+    if request.method == 'POST':
+        form = JobPostingForm(request.POST, instance=job)
+        if form.is_valid():
+            form.save()
+            return redirect('posted_jobs')
+    else:
+        form = JobPostingForm(instance=job)
+    return render(request, 'pms/job_posting_edit.html', {'form': form, 'job': job})
 
 def accept_application(request, application_id):
     application = get_object_or_404(JobApplication, pk=application_id)

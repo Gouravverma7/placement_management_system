@@ -1,0 +1,31 @@
+<h2>Your Posted Jobs</h2>
+
+  {% if job_postings %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Application Deadline</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for job_posting in job_postings %}
+          <tr>
+            <td>{{ job_posting.title }}</td>
+            <td>{{ job_posting.description }}</td>
+            <td>{{ job_posting.application_deadline }}</td>
+            <td>
+              <a href="{% url 'edit_job_posting' job_posting.id %}">Edit</a> |
+             
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>You haven't posted any jobs yet.</p>
+  {% endif %}
+  
+  <a href="{% url 'post_job' %}" class="btn btn-primary">Post a New Job</a>
