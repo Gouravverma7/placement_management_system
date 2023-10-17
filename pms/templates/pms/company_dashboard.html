@@ -1,1 +1,30 @@
-company dsh board
+<!DOCTYPE html>
+{% load static%}'
+<html>
+<head>
+    <title>Company Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/company_dashboard.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'company_dashboard' %}" class="active">Company Dashboard</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Welcome to the company Dashboard</h1>
+        <div class="dashboard-content">
+            <!-- Add content specific to the company dashboard -->
+            <a href="{% url 'view_company_profile' %}">profile</a></br>
+            <a href="{% url 'edit_company_profile' %}">edit profile</a></br>
+            <a href="{% url 'post_job' %}">Post jobs</a></br>
+            <a href="{% url 'job_applications' %}">View Job applications</a>
+        </div>
+    </div>
+</body>
+</html>

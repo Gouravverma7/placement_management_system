@@ -19,12 +19,12 @@
                     {% if user.is_authenticated %}
                     {% if user.is_student %}
                        <!-- Display student dashboard link when a student is logged in -->
-                       <li><a href="{% url 'student_dashboard' %}">Student Dashboard</a></li>
+                       <li><a href="{% url 'student_dashboard' %}">Dashboard</a></li>
                     {% endif %}
                     
                     {% if user.is_company %}
                        <!-- Display company dashboard link when a company is logged in -->
-                       <li><a href="{% url 'company_dashboard' %}">Company Dashboard</a></li>
+                       <li><a href="{% url 'company_dashboard' %}">Dashboard</a></li>
                     {% endif %}
                     
                     <!-- Display logout link for all authenticated users -->
