@@ -5,8 +5,8 @@ from django.contrib import messages
 from .forms import RegistrationForm,StudentProfileForm,CompanyProfileForm,JobPostingForm,JobApplicationForm
 from .models import StudentProfile,CompanyProfile,JobPosting,JobApplication
 
-def index(request):
-    return render(request,'pms/index.html')
+def home(request):
+    return render(request,'pms/home.html')
 
 def student_dashboard(request):
     return render(request,'pms/student_dashboard.html')

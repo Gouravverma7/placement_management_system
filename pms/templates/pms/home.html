@@ -1,3 +1,5 @@
+{% extends 'pms/base.html' %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +8,9 @@
     <title>Document</title>
 </head>
 <body>
-        Home
+    {% block body %}
+    Home page
+    {% endblock %}
+    
 </body>
 </html>
