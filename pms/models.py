@@ -4,14 +4,16 @@ from django.db import models
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
 class CustomUser(AbstractUser):
+    
     ROLE_CHOICES = (
         ('student', 'Student'),
         ('company', 'Company'),
     )
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
     phone_number = models.CharField(max_length=50)
-
+    
     # Add fields common to both students and companies
     
 
@@ -43,3 +45,20 @@ class CompanyProfile(models.Model):
     # Add other fields as needed
     def __str__(self):
         return self.company_name
+
+
+class JobPosting(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+    company = models.ForeignKey(CompanyProfile, on_delete=models.CASCADE)
+    application_deadline = models.DateField()
+    is_active = models.BooleanField(default=True)
+    # Add other fields as needed
+
+class JobApplication(models.Model):
+    job = models.ForeignKey(JobPosting, on_delete=models.CASCADE)
+    applicant = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
+    cover_letter = models.TextField()
+    status = models.CharField(max_length=20, choices=[("pending", "Pending"), ("accepted", "Accepted"), ("rejected", "Rejected")], default="pending")
+    application_date = models.DateTimeField(auto_now_add=True)
+    # Add other fields as needed

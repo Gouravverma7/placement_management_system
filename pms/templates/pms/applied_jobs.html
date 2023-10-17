@@ -1,0 +1,12 @@
+<h1>Applied Jobs</h1>
+  <ul>
+    {% for application in job_applications %}
+      <li>
+        <p>Job Title: {{ application.job.title }}</p>
+        <p>Cover Letter: {{ application.cover_letter }}</p>
+        <p>Status: {{ application.status }}</p>
+      </li>
+    {% empty %}
+      <p>No job applications available.</p>
+    {% endfor %}
+  </ul>

@@ -1,0 +1,20 @@
+<h1>Job Applications</h1>
+  <ul>
+    {% for application in job_applications %}
+      <li>
+        <p>Applicant: {{ application.applicant.name }}</p>
+        <p>Cover Letter: {{ application.cover_letter }}</p>
+        <p>Status: {{ application.status }}</p>
+        <form method="post" action="{% url 'accept_application' application.id %}">
+          {% csrf_token %}
+          <button type="submit">Accept</button>
+        </form>
+        <form method="post" action="{% url 'reject_application' application.id %}">
+          {% csrf_token %}
+          <button type="submit">Reject</button>
+        </form>
+      </li>
+    {% empty %}
+      <p>No job applications available.</p>
+    {% endfor %}
+  </ul>
