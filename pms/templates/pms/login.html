@@ -1,32 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-    <h2>Login</h2>
-    <form method="POST" action="{% url 'user_login' %}">
-        {% csrf_token %}
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br>
+{% load static %}
+   <html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
+      <!--=============== REMIXICONS ===============-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css" crossorigin="">
 
-        <input type="submit" value="Login">
-    </form>
+      <!--=============== CSS ===============-->
+      <link rel="stylesheet" href="{% static 'css/login.css' %}">
 
-    {% if messages %}
-        <div class="alert alert-danger">
-            <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
+      <title>Login form</title>
+   </head>
+   <body>
+      <div class="login">
+         <img src="{% static 'images/login-bg.png' %}" alt="image" class="login__bg">
 
-    <a href="{% url 'registration' %}">Don't have an account? Register here.</a>
-</body>
+         <form action="{% url 'user_login' %}" class="login__form" method="post">
+         {% csrf_token %}
+            <h1 class="login__title">Login</h1>
+
+            <div class="login__inputs">
+               <div class="login__box">
+                  <!-- <input type="text" placeholder="Username" required class="login__input" id="username"> -->
+                  <input type="text" placeholder="Username" id="username" name="username" class="login__input" required><br>
+
+                  <!-- <i class="ri-mail-fill"></i> -->
+               </div>
+
+               <div class="login__box">
+                  <!-- <input type="password" placeholder="Password" required class="login__input" id="password"> -->
+                  <input type="password" placeholder="Password" id="password" name="password" class="login__input"  required><br>
+                  <!-- <i class="ri-lock-2-fill"></i> -->
+               </div>
+            </div>
+
+            <div class="login__check">
+               <!-- <div class="login__check-box">
+                  <input type="checkbox" class="login__check-input" id="user-check">
+                  <label for="user-check" class="login__check-label">Remember me</label>
+               </div> -->
+
+               <a href="#" class="login__forgot">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login__button">Login</button>
+
+            <div class="login__register">
+               Don't have an account? <a href="{% url 'registration' %}">Register</a>
+            </div>
+         </form>
+      </div>
+   </body>
 </html>
