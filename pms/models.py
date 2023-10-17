@@ -10,6 +10,7 @@ class CustomUser(AbstractUser):
         ('company', 'Company'),
     )
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
+    phone_number = models.CharField(max_length=50)
 
     # Add fields common to both students and companies
     
@@ -29,6 +30,9 @@ class StudentProfile(models.Model):
     contact_info = models.CharField(max_length=100)
     skills = models.TextField()
     # Add other fields as needed
+    
+    def __str__(self):
+        return self.name
 
 class CompanyProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
@@ -37,4 +41,5 @@ class CompanyProfile(models.Model):
     description = models.TextField()
     industry = models.CharField(max_length=100)
     # Add other fields as needed
-
+    def __str__(self):
+        return self.company_name

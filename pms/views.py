@@ -8,9 +8,11 @@ from .models import StudentProfile,CompanyProfile
 def index(request):
     return render(request,'pms/index.html')
 
-# def job_postings(request):
-#     job_list = JobPosting.objects.all()
-#     return render(request, 'core/job_postings.html', {'job_list': job_list})
+def student_dashboard(request):
+    return render(request,'pms/student_dashboard.html')
+
+def company_dashboard(request):
+    return render(request,'pms/company_dashboard.html')
 
 def registration(request):
     if request.method == 'POST':

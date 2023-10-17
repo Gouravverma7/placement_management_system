@@ -5,7 +5,7 @@ from .models import CustomUser,StudentProfile, CompanyProfile
 class RegistrationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2', 'role']
+        fields = ['username', 'email', 'password1', 'password2', 'role','phone_number']
 
 
 
