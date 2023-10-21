@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,5 +11,6 @@
     {{company_profile.company_name}}
     {{company_profile.description}}
     {{company_profile.industry}}
+    <img src="{% if profile_picture %}{{ profile_picture.url }}{% else %}{% static 'images/logo.png' %}{% endif %}" alt="Company Profile Picture" width="150" height="150">
 </body>
 </html>

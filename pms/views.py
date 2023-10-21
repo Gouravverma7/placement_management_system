@@ -10,11 +10,16 @@ def home(request):
 
 def student_dashboard(request):
     #for listing recently posted jobs
+    student_profile = StudentProfile.objects.get(user=request.user)
+    profile_picture = student_profile.profile_picture
     recent_jobs = JobPosting.objects.filter(is_active=True).order_by('-id')[:5]
     
-    return render(request,'pms/student_dashboard.html',{'recent_jobs': recent_jobs})
+    return render(request,'pms/student_dashboard.html',{'recent_jobs': recent_jobs,'profile_picture':profile_picture})
 
 def company_dashboard(request):
+    
+    company_profile = CompanyProfile.objects.get(user=request.user)
+    profile_picture = company_profile.profile_picture
     total_job_applications = JobApplication.objects.filter(job__company=request.user.companyprofile).count()
     total_accepted_applications = JobApplication.objects.filter(
             job__company=request.user.companyprofile, status='accepted'
@@ -22,7 +27,7 @@ def company_dashboard(request):
     total_job_postings = JobPosting.objects.filter(company=request.user.companyprofile).count()
     recent_jobs = JobPosting.objects.filter(company=request.user.companyprofile, is_active=True).order_by('-id')[:5]
     recent_applications = JobApplication.objects.filter(job__company=request.user.companyprofile).order_by('-application_date')[:5]
-    return render(request,'pms/company_dashboard1.html',{'recent_applications':recent_applications,'total_job_postings': total_job_postings,'total_job_applications': total_job_applications,'total_accepted_applications': total_accepted_applications,'recent_jobs': recent_jobs})
+    return render(request,'pms/company_dashboard1.html',{'recent_applications':recent_applications,'total_job_postings': total_job_postings,'total_job_applications': total_job_applications,'total_accepted_applications': total_accepted_applications,'recent_jobs': recent_jobs,'profile_picture':profile_picture})
 
 def registration(request):
     if request.method == 'POST':
@@ -77,15 +82,17 @@ def view_student_profile(request):
     print(request.user.role)
 
     student_profile = StudentProfile.objects.get(user=request.user)
-    return render(request, 'pms/student_profile.html', {'student_profile': student_profile})
+    profile_picture = student_profile.profile_picture
+    return render(request, 'pms/student_profile.html', {'student_profile': student_profile,'profile_picture':profile_picture})
 
 #view for editing student profile 
 @login_required
 def edit_student_profile(request):
     student_profile = StudentProfile.objects.get(user=request.user)
+    
 
     if request.method == 'POST':
-        form = StudentProfileForm(request.POST, instance=student_profile)
+        form = StudentProfileForm(request.POST,request.FILES, instance=student_profile)
         if form.is_valid():
             form.save()
             return redirect('view_student_profile')
@@ -102,7 +109,8 @@ def view_company_profile(request):
     print(request.user)
 
     company_profile = CompanyProfile.objects.get(user=request.user)
-    return render(request, 'pms/company_profile.html', {'company_profile': company_profile})
+    profile_picture = company_profile.profile_picture
+    return render(request, 'pms/company_profile.html', {'company_profile': company_profile,'profile_picture':profile_picture})
 
 #view for editing company profile 
 @login_required
@@ -110,7 +118,7 @@ def edit_company_profile(request):
     company_profile = CompanyProfile.objects.get(user=request.user)
 
     if request.method == 'POST':
-        form = CompanyProfileForm(request.POST, instance=company_profile)
+        form = CompanyProfileForm(request.POST,request.FILES, instance=company_profile,)
         if form.is_valid():
             form.save()
             return redirect('view_company_profile')

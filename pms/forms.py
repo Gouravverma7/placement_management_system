@@ -12,12 +12,12 @@ class RegistrationForm(UserCreationForm):
 class StudentProfileForm(forms.ModelForm):
     class Meta:
         model = StudentProfile
-        fields = ['name', 'contact_info', 'skills', ]
+        fields = ['name', 'contact_info', 'skills','profile_picture', ]
 
 class CompanyProfileForm(forms.ModelForm):
     class Meta:
         model = CompanyProfile
-        fields = ['company_name', 'description', 'industry',]
+        fields = ['company_name', 'description', 'industry','profile_picture',]
         
 class JobApplicationForm(forms.ModelForm):
     class Meta:
@@ -27,4 +27,4 @@ class JobApplicationForm(forms.ModelForm):
 class JobPostingForm(forms.ModelForm):
     class Meta:
         model = JobPosting
-        fields = ['title', 'description', 'application_deadline', 'is_active']
+        fields = ['title', 'description', 'application_deadline', 'is_active',]

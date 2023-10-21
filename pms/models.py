@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import FileExtensionValidator
 # Create your models here.
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -32,6 +32,8 @@ class StudentProfile(models.Model):
     contact_info = models.CharField(max_length=100)
     skills = models.TextField()
     # Add other fields as needed
+    profile_picture = models.ImageField(upload_to='student_profile_pics/', null=True, blank=True)
+
     
     def __str__(self):
         return self.name
@@ -42,6 +44,9 @@ class CompanyProfile(models.Model):
     company_name = models.CharField(max_length=100)
     description = models.TextField()
     industry = models.CharField(max_length=100)
+    
+    profile_picture = models.ImageField(upload_to='company_profile_pics/', null=True, blank=True)
+
     # Add other fields as needed
     def __str__(self):
         return self.company_name
