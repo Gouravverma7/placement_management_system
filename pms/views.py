@@ -3,7 +3,7 @@ from django.contrib.auth import login,authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import RegistrationForm,StudentProfileForm,CompanyProfileForm,JobPostingForm,JobApplicationForm
-from .models import StudentProfile,CompanyProfile,JobPosting,JobApplication
+from .models import StudentProfile,CompanyProfile,JobPosting,JobApplication,CustomUser
 
 def home(request):
     return render(request,'pms/home.html')
@@ -29,6 +29,8 @@ def company_dashboard(request):
     recent_applications = JobApplication.objects.filter(job__company=request.user.companyprofile).order_by('-application_date')[:5]
     return render(request,'pms/company_dashboard1.html',{'recent_applications':recent_applications,'total_job_postings': total_job_postings,'total_job_applications': total_job_applications,'total_accepted_applications': total_accepted_applications,'recent_jobs': recent_jobs,'profile_picture':profile_picture})
 
+
+
 def registration(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
@@ -49,11 +51,9 @@ def registration(request):
             elif user.is_company():
                 # Redirect to the company dashboard or another view
                 return redirect('company_dashboard')
-    else:
-        form = RegistrationForm()
+        
+    form = RegistrationForm()
     return render(request, 'pms/registration.html', {'form': form})
-
-
 
 def user_login(request):
     if request.method == 'POST':

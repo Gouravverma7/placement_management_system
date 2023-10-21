@@ -11,8 +11,10 @@ class CustomUser(AbstractUser):
         ('student', 'Student'),
         ('company', 'Company'),
     )
+    
+    email = models.EmailField(max_length=254)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES)
-    phone_number = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=10)
     
     # Add fields common to both students and companies
     

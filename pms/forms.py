@@ -3,9 +3,13 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser,StudentProfile, CompanyProfile,JobApplication,JobPosting
 
 class RegistrationForm(UserCreationForm):
+    email = forms.EmailField(max_length=254, required=True, help_text='Required. Enter a valid email address.')
+    phone_number = forms.CharField(max_length=20, required=True)
+    role = forms.ChoiceField(choices=CustomUser.ROLE_CHOICES, required=True)
+
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2', 'role','phone_number']
+        fields = ('username', 'email', 'phone_number', 'role', 'password1', 'password2')
 
 
 

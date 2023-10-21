@@ -22,6 +22,7 @@
             <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
             <li class="active"><a href="{% url 'post_job' %}"><i class='bx bx-analyse'></i>Post New Job</a></li>
             <li><a href="{% url 'posted_jobs' %}"><i class='bx bx-group'></i>Posted Jobs</a></li>
+            <li><a href="{% url 'job_applications' %}"><i class='bx bx-cog'></i>Job Applications</a></li>
             <li><a href="{% url 'view_company_profile' %}"><i class='bx bx-group'></i>User Profile</a></li>
             <li><a href="{% url 'edit_company_profile' %}"><i class='bx bx-cog'></i>Edit Profile</a></li>
         </ul>
@@ -53,7 +54,7 @@
                 <i class='bx bx-bell'></i>
                 <span class="count">12</span>
             </a>
-            <a href="#" class="profile">
+            <a href="{% url 'view_company_profile' %}" class="profile">
                 <img src="{% if profile_picture %}{{ profile_picture.url }}{% else %}{% static 'images/logo.png' %}{% endif %}" alt="Profile Picture">
                 <!-- <img src="{{ company_profile.profile_picture.url }}" alt="Company Profile Picture" width="150" height="150"> -->
 
