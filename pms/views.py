@@ -140,7 +140,7 @@ def post_job(request):
                 return redirect('company_dashboard')  # Redirect to the job listing page
         else:
             form = JobPostingForm()
-        return render(request, 'pms/job_posting_form.html', {'form': form})
+        return render(request, 'pms/postjob.html', {'form': form})
     else:
         return render(request, 'pms/access_denied.html')  # Customize this template
 
