@@ -9,10 +9,14 @@ def home(request):
     return render(request,'pms/home.html')
 
 def student_dashboard(request):
-    return render(request,'pms/student_dashboard.html')
+    #for listing recently posted jobs
+    recent_jobs = JobPosting.objects.filter(is_active=True).order_by('-id')[:5]
+    
+    return render(request,'pms/student_dashboard.html',{'recent_jobs': recent_jobs})
 
 def company_dashboard(request):
-    return render(request,'pms/company_dashboard.html')
+    recent_applications = JobApplication.objects.filter(job__company=request.user.companyprofile).order_by('-application_date')[:5]
+    return render(request,'pms/company_dashboard.html',{'recent_applications':recent_applications})
 
 def registration(request):
     if request.method == 'POST':

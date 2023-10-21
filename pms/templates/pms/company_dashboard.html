@@ -26,6 +26,20 @@
             <a href="{% url 'posted_jobs' %}">Posted jobs</a></br>
             <a href="{% url 'job_applications' %}">View Job applications</a>
         </div>
+        <div>
+            <h2>Recently Applied Applications</h2>
+            <ul>
+            {% for application in recent_applications %}
+            <li>
+            <strong>Job Title:</strong> {{ application.job.title }}<br>
+            <strong>Applicant:</strong> {{ application.applicant.user.username }}<br>
+            <strong>Application Date:</strong> {{ application.application_date }}<br>
+            <strong>Status:</strong> {{ application.status }}<br>
+
+            </li>
+            {% endfor %}
+            </ul>
+        </div>
     </div>
 </body>
 </html>
