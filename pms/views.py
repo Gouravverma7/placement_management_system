@@ -15,8 +15,14 @@ def student_dashboard(request):
     return render(request,'pms/student_dashboard.html',{'recent_jobs': recent_jobs})
 
 def company_dashboard(request):
+    total_job_applications = JobApplication.objects.filter(job__company=request.user.companyprofile).count()
+    total_accepted_applications = JobApplication.objects.filter(
+            job__company=request.user.companyprofile, status='accepted'
+        ).count()
+    total_job_postings = JobPosting.objects.filter(company=request.user.companyprofile).count()
+    recent_jobs = JobPosting.objects.filter(company=request.user.companyprofile, is_active=True).order_by('-id')[:5]
     recent_applications = JobApplication.objects.filter(job__company=request.user.companyprofile).order_by('-application_date')[:5]
-    return render(request,'pms/company_dashboard.html',{'recent_applications':recent_applications})
+    return render(request,'pms/company_dashboard1.html',{'recent_applications':recent_applications,'total_job_postings': total_job_postings,'total_job_applications': total_job_applications,'total_accepted_applications': total_accepted_applications,'recent_jobs': recent_jobs})
 
 def registration(request):
     if request.method == 'POST':

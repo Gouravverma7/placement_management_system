@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/company_dashboard1.css'%}">
+    <title>Company Pannel</title>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" class="logo">
+            <i class='bx bx-code-alt'></i>
+            <div class="logo-name"><span>Company</span>Panel</div>
+        </a>
+        <ul class="side-menu">
+            <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li class="active"><a href="{% url 'post_job' %}"><i class='bx bx-analyse'></i>Post New Job</a></li>
+            <li><a href="{% url 'posted_jobs' %}"><i class='bx bx-group'></i>Posted Jobs</a></li>
+            <li><a href="{% url 'view_company_profile' %}"><i class='bx bx-group'></i>User Profile</a></li>
+            <li><a href="{% url 'edit_company_profile' %}"><i class='bx bx-cog'></i>Edit Profile</a></li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="{% url 'logout' %}" class="logout">
+                    <i class='bx bx-log-out-circle'></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="theme-toggle" hidden>
+            <label for="theme-toggle" class="theme-toggle"></label>
+            <a href="#" class="notif">
+                <i class='bx bx-bell'></i>
+                <span class="count">12</span>
+            </a>
+            <a href="#" class="profile">
+                <img src="{% static 'images/logo.png'%}">
+            </a>
+        </nav>
+
+        <!-- End of Navbar -->
+        <!-- Main content -->
+
+        <main>
+            <div class="header">
+                <div class="left">
+                    <h1>Dashboard</h1>
+                    <!-- <ul class="breadcrumb">
+                        <li><a href="#">
+                                Analytics
+                            </a></li>
+                        /
+                        <li><a href="#" class="active">Posts</a></li>
+                    </ul> -->
+                </div>
+                <!-- <a href="#" class="report">
+                    <i class='bx bx-cloud-download'></i>
+                    <span>Download CSV</span>
+                </a> -->
+            </div>
+
+            <!-- Main content -->
+            <ul class="insights">
+                <li>
+                    <i class='bx bx-calendar-check'></i>
+                    <span class="info">
+                        <h3>
+                            {{ total_job_postings }}
+                        </h3>
+                        <p>Jobs posted</p>
+                    </span>
+                </li>
+                <li><i class='bx bx-show-alt'></i>
+                    <span class="info">
+                        <h3>
+                            {{ total_job_applications }}
+                        </h3>
+                        <p>Student Registered</p>
+                    </span>
+                </li>
+                <li><i class='bx bx-line-chart'></i>
+                    <span class="info">
+                        <h3>
+                            {{total_accepted_applications}}
+                        </h3>
+                        <p>Accepted Applicants</p>
+                    </span>
+                </li>
+                
+            </ul>
+            <!-- End of Main content -->
+            
+            <div class="bottom-data">
+                <div class="orders">
+                    <div class="header">
+                        <i class='bx bx-receipt'></i>
+                        <h3>Recent Applications</h3>
+                        
+                        <i class='bx bx-filter'></i>
+                        <i class='bx bx-search'></i>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Order Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for application in recent_applications %}
+                            <tr>
+                                <td>
+                                    <img src="{% static 'images/profile-1.jpg'%}">
+                                    <a href="">
+                                    <p>{{ application.applicant.user.username }}</p>
+                                    </a>
+                                </td>
+                                <td>{{ application.application_date }}</td>
+                                <td><span class="status completed">{{ application.status }}</span></td>
+                            </tr>
+                            
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Upcomming Drives -->
+                <div class="reminders">
+                    <div class="header">
+                        <i class='bx bx-note'></i>
+                        <h3>Recently Posted</h3>
+                        <i class='bx bx-filter'></i>
+                        <i class='bx bx-plus'></i>
+                    </div>
+                    <ul class="task-list">
+                        {% for job in recent_jobs %}
+                        <li class="completed">
+                            <div class="task-title">
+                                <i class='bx bx-check-circle'></i>
+                                <p>{{ job.title }}</p>
+                            </div>
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <!-- End of Upcomming Drives-->
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="{% static 'js/company_dashboard1.js'%}"></script>
+</body>
+
+</html>
+
