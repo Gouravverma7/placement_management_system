@@ -1,8 +1,69 @@
-{% extends 'pms/base.html' %} 
-{% block body %}
-<div class="flex flex-col justify-center items-center min-h-screen">
-    <h1 class="font-bold text-lg">You have been logged out</h1>
-     <p><span><a class="text-indigo-500" href="{% url 'user_login' %}">Click here</a>   to log back in </span></p>
-</div>
-   
-{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+    <title>Campus Recruitment</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="main">
+            <div id="side-menu" class="hidden">
+                <div id="part-2">
+                    <h4 id="home"><a href="{% url 'home' %}">Home</a></h4>
+                    <h4><a href="#">About Us</a></h4>
+                    {% if user.is_authenticated %}
+                        {% if user.is_student %}
+                    <h4 id="user-profile"><a href="{% url 'student_dashboard' %}">User Profile</a></h4>
+                        {% endif %}
+                        {% if user.is_company %}
+                    <h4 id="user-profile"><a href="{% url 'company_dashboard' %}">User Profile</a></h4>
+                    {% endif %}
+                    <h4 id="user-profile"><a href="{% url 'logout' %}">Logout</a></h4>
+                    {% else %}
+                    <h4 id="login"><a href="{% url 'user_login' %}">Login</a></h4>
+                    <h4 id="register"><a href="{% url 'registration' %}">Register</a></h4>
+                    {% endif %}
+                </div>
+            </div>
+            <div id="nav">
+                <div id="part-1">
+                    <h2>Campus <span>Recruitment</span></h2>
+                </div>
+                <div id="part-2">
+                    <h4 id="home"><a href="{% url 'home' %}">Home</a></h4>
+                    <h4><a href="#">About Us</a></h4>
+                    {% if user.is_authenticated %}
+                        {% if user.is_student %}
+                    <h4 id="user-profile"><a href="{% url 'student_dashboard' %}">User Profile</a></h4>
+                        {% endif %}
+                        {% if user.is_company %}
+                    <h4 id="user-profile"><a href="{% url 'company_dashboard' %}">User Profile</a></h4>
+                        {% endif %}
+                    <h4 id="user-profile"><a href="{% url 'logout' %}">Logout</a></h4>
+                    {% else %}
+                    <h4 id="login"><a href="{% url 'user_login' %}">Login</a></h4>
+                    <h4 id="register"><a href="{% url 'registration' %}">Register</a></h4>
+                    {% endif %}
+                </div>
+                <div id="button">
+                    <i id="icon" class="ri-menu-line"></i>
+                </div>
+            </div>
+            <div id="content">
+                <div id="text">
+                    <h3>College Campus Placement Management System</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam amet, dolore neque fuga iste facilis vero molestias quisquam sequi natus numquam. Dolorem voluptas qui voluptatum eum dolorum ipsam assumenda consectetur.</p>
+                    <button>Learn More</button>
+                </div>
+            </div>
+            <img src="{% static 'images/home.png' %}" alt="">
+        </div>
+    </div>
+
+    <script src="{% static 'js/home.js' %}"></script>
+</body>
+</html>
