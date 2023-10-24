@@ -6,10 +6,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{% static 'css/edit_company_profile.css' %}" id="old">
-    <link rel="stylesheet" href="{% static 'css/edit_company_profile1.css' %}" disabled="true" id="new">
-    <link rel="stylesheet" href="{% static 'css/edit_company_profile2.css' %}">
     <!-- <link rel="stylesheet" href="{% static 'css/company_dashboard1.css'%}"> -->
+    <link rel="stylesheet" id="new-styles" href="{% static 'css/jobpostdark.css'%}" disabled="true">
+    <link rel="stylesheet" href="{% static 'css/jobpost1.css'%}">
+    <link rel="stylesheet" id="old" href="{% static 'css/jobpost2.css'%}">
     <title>Company Pannel</title>
 </head>
 
@@ -45,8 +45,7 @@
         <!-- Navbar -->
         <nav>
             <i class='bx bx-menu'></i>
-            <form action="#" method="">
-                
+            <form action="#">
                 <div class="form-input">
                     <input type="search" placeholder="Search...">
                     <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
@@ -62,6 +61,7 @@
                 <img src="{% if profile_picture %}{{ profile_picture.url }}{% else %}{% static 'images/logo.png' %}{% endif %}"
                     alt="Profile Picture">
                 <!-- <img src="{{ company_profile.profile_picture.url }}" alt="Company Profile Picture" width="150" height="150"> -->
+
             </a>
         </nav>
 
@@ -69,47 +69,44 @@
         <!-- Main content -->
         <div id="main">
             <div id="form">
-                <h1 class="login__title">Edit Profile</h1>
-                <form action="#" style="padding: 33.5px 10px" method="post" enctype="multipart/form-data" >
+                <h1 class="login__title">Post Vacancy</h1>
+                <form action="#" style="padding: 33.5px 10px" method="post">
                     {% csrf_token %}
                     <div class="login-inputs">
                         <div id="top">
                             <div class="login__box">
-                                <input name="company_name" type="text" placeholder="Company Name" required class="login__input">
+                                <input name="title" id="id_title" type="text" placeholder="Job Title" required class="login__input">
                             </div>
-                            <div class="login__box">
-                                <input name="industry" type="text" placeholder="Industry" required class="login__input">
-                                <!-- <i class="ri-lock-2-fill"></i> -->
-                            </div>
+                            
                         </div>
                         <label id="desc-lable" for="jobDescription"></label>
                         <div class="login__box">
-                            <textarea id="jobDescription" placeholder="Description" name="description" rows="6"
+                            <textarea id="jobDescription" name="description" placeholder="Job Description"  rows="6"
                                 cols="66" required class="login__input"></textarea>
                         </div>
-                        <div class="container">
-                            <h1>Upload Image</h1>
-                            <div class="avatar-upload">
-                                <div class="avatar-edit">
-                                    <input name="profile_picture" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-                                    <label for="imageUpload"></label>
-                                </div>
-                                <div class="avatar-preview">
-                                    <div id="imagePreview" style="background-image: url('{% if profile_picture %}{{ profile_picture.url }}{% else %}{% static 'images/logo.png' %}{% endif %}');">
-                                    </div>
-                                    
-                                </div>
+                        <div id="bottom">
+                            <div class="login__box">
+                                <label for="id_application_deadline"></label>
+                                <input type="date" placeholder="" name="application_deadline" id="id_application_deadline" required class="login__input"
+                                    pattern="\d{4}-\d{2}-\d{2}">
                             </div>
+                           
                         </div>
-                        <button type="submit" class="login__button">Update</button>
+                        <div class="login__box" id="is-active-box">
+                            <label for="id_is_active" id="lable">Is Active</label>
+                            <input type="checkbox" placeholder="Is Active" required class="login__input" name="is_active" id="id_is_active">
+                        </div>
+                    </div>
+                    <button type="submit" class="login__button">Post Job</button>
                 </form>
             </div>
         </div>
-
+        <!-- End of Main content -->
     </div>
-    <script src="{% static 'js/edit_company_profile.js' %}"></script>
-    <script src="{% static 'js/edit_company_profile1.js' %}"></script>
-    
+
+    <script src="{% static 'js/jobpost1.js'%}"></script>
+    <script src="{% static 'js/jobpost2.js'%}"></script>
+    <!-- <script src="{% static 'js/company_dashboard1.js'%}"></script> -->
 </body>
 
 </html>

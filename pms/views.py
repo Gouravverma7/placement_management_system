@@ -116,6 +116,8 @@ def view_company_profile(request):
 @login_required
 def edit_company_profile(request):
     company_profile = CompanyProfile.objects.get(user=request.user)
+    profile_picture = company_profile.profile_picture
+    company_profile = CompanyProfile.objects.get(user=request.user)
 
     if request.method == 'POST':
         form = CompanyProfileForm(request.POST,request.FILES, instance=company_profile,)
@@ -125,11 +127,13 @@ def edit_company_profile(request):
     else:
         form = CompanyProfileForm(instance=company_profile)
 
-    return render(request, 'pms/edit_company_profile.html', {'form': form})
+    return render(request, 'pms/edit_company_profile.html', {'form': form,'profile_picture':profile_picture})
 
 #to post jobs 
 @login_required
 def post_job(request):
+    company_profile = CompanyProfile.objects.get(user=request.user)
+    profile_picture = company_profile.profile_picture
     if request.user.is_company():
         if request.method == 'POST':
             form = JobPostingForm(request.POST)
@@ -140,7 +144,7 @@ def post_job(request):
                 return redirect('company_dashboard')  # Redirect to the job listing page
         else:
             form = JobPostingForm()
-        return render(request, 'pms/postjob.html', {'form': form})
+        return render(request, 'pms/jobpost.html', {'form': form,'profile_picture':profile_picture})
     else:
         return render(request, 'pms/access_denied.html')  # Customize this template
 
