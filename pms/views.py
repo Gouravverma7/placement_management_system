@@ -106,11 +106,13 @@ def edit_student_profile(request):
 @login_required
 def view_company_profile(request):
     # Retrieve the student's profile
-    print(request.user)
+    total_job_postings = JobPosting.objects.filter(company=request.user.companyprofile).count()
+    recent_jobs = JobPosting.objects.filter(company=request.user.companyprofile, is_active=True).count()
+    
 
     company_profile = CompanyProfile.objects.get(user=request.user)
     profile_picture = company_profile.profile_picture
-    return render(request, 'pms/company_profile.html', {'company_profile': company_profile,'profile_picture':profile_picture})
+    return render(request, 'pms/company_profile.html', {'company_profile': company_profile,'profile_picture':profile_picture,'total_postings':total_job_postings,'active_jobs':recent_jobs})
 
 #view for editing company profile 
 @login_required

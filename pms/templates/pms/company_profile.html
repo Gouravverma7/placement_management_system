@@ -1,16 +1,114 @@
 <!DOCTYPE html>
-{% load static %}
+<!-- {% load static %} -->
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/companyprofile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/companyprofile1.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/company_dashboard1.css'%}"> -->
+    <title>Company Pannel</title>
 </head>
+
 <body>
-    cccccc
-    {{company_profile.company_name}}
-    {{company_profile.description}}
-    {{company_profile.industry}}
-    <img src="{% if profile_picture %}{{ profile_picture.url }}{% else %}{% static 'images/logo.png' %}{% endif %}" alt="Company Profile Picture" width="150" height="150">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" class="logo">
+            <i class='bx bx-code-alt'></i>
+            <div class="logo-name"><span>Company</span>Panel</div>
+        </a>
+        <ul class="side-menu">
+            <li><a href="{% url 'company_dashboard' %}"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li class="active"><a href="{% url 'post_job' %}"><i class='bx bx-analyse'></i>Post New Job</a></li>
+            <li><a href="{% url 'posted_jobs' %}"><i class='bx bx-group'></i>Posted Jobs</a></li>
+            <li><a href="{% url 'job_applications' %}"><i class='bx bx-cog'></i>Job Applications</a></li>
+            <li><a href="{% url 'view_company_profile' %}"><i class='bx bx-group'></i>User Profile</a></li>
+            <li><a href="{% url 'edit_company_profile' %}"><i class='bx bx-cog'></i>Edit Profile</a></li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="{% url 'logout' %}" class="logout">
+                    <i class='bx bx-log-out-circle'></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="theme-toggle" hidden>
+            <label for="theme-toggle" class="theme-toggle"></label>
+            <a href="#" class="notif">
+                <i class='bx bx-bell'></i>
+                <span class="count">12</span>
+            </a>
+            <a href="{% url 'view_company_profile' %}" class="profile">
+                <img src="{% if profile_picture %}{{ profile_picture.url }}{% else %}{% static 'images/logo.png' %}{% endif %}"
+                    alt="Profile Picture">
+                <!-- <img src="{{ company_profile.profile_picture.url }}" alt="Company Profile Picture" width="150" height="150"> -->
+            </a>
+        </nav>
+
+        <!-- End of Navbar -->
+        <!-- Main content -->
+
+        <div class="wrapper">
+            <div class="profile-card js-profile-card">
+                <div class="profile-card__img">
+                    <img src="{% if profile_picture %}{{ profile_picture.url }}{% else %}{% static 'images/logo.png' %}{% endif %}" 
+                        alt="profile card">
+                </div>
+
+                <div class="profile-card__cnt js-profile-cnt">
+                    <div class="profile-card__name">{{company_profile.company_name}}</div>
+                    <div class="profile-card__txt">{{company_profile.description}}</div>
+                    <div class="profile-card-loc">
+                        <span class="profile-card-loc__icon">
+                            <svg class="icon">
+                                <use xlink:href="#icon-location"></use>
+                            </svg>
+                        </span>
+                       
+                        <span class="profile-card-loc__txt">
+                            {{company_profile.industry}}
+                        </span>
+                    </div>
+
+                    <div class="profile-card-inf">
+                        <div class="profile-card-inf__item">
+                            <div class="profile-card-inf__title">{{total_postings}}</div>
+                            <div class="profile-card-inf__txt">Jobs Posted</div>
+                        </div>
+
+                      
+
+                        <div class="profile-card-inf__item">
+                            <div class="profile-card-inf__title">{{active_jobs}}</div>
+                            <div class="profile-card-inf__txt">Active Jobs</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/companyprofile.js' %}"></script>
+    <script src="{% static 'js/companyprofile1.js' %}"></script>
+    <!-- <script src="{% static 'js/company_dashboard1.js'%}"></script> -->
 </body>
+
 </html>
