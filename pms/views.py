@@ -157,7 +157,7 @@ def apply_for_job(request, job_id):
 
     if request.user.is_student:
         if request.method == 'POST':
-            form = JobApplicationForm(request.POST)
+            form = JobApplicationForm(request.POST,request.FILES)
             if form.is_valid():
                 application = form.save(commit=False)
                 application.job = job
@@ -183,8 +183,8 @@ def job_applications(request):
         job_applications = JobApplication.objects.filter(job__company=request.user.companyprofile)
         return render(request, 'pms/job_applications.html', {'job_applications': job_applications})
     else:
-        return render(request, 'access_denied.html')  # Customize this template
-
+        return render(request, 'access_denied.html') 
+    
 #listing posted jobs company user
 def company_job_postings(request):
     if request.user.is_company:

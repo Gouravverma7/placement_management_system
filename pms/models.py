@@ -65,7 +65,13 @@ class JobPosting(models.Model):
 class JobApplication(models.Model):
     job = models.ForeignKey(JobPosting, on_delete=models.CASCADE)
     applicant = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
+    class_10th_percentage = models.FloatField(null=True)
+    class_12th_percentage = models.FloatField(null=True)
+    class_10th_board = models.CharField(max_length=50,null=True)
+    class_12th_board = models.CharField(max_length=50,null=True)
+    aggregate_cgpa = models.FloatField(null=True)
     cover_letter = models.TextField()
+    resume = models.FileField(upload_to='resume/', max_length=100,null=True)
     status = models.CharField(max_length=20, choices=[("pending", "Pending"), ("accepted", "Accepted"), ("rejected", "Rejected")], default="pending")
     application_date = models.DateTimeField(auto_now_add=True)
     # Add other fields as needed

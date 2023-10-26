@@ -26,7 +26,7 @@ class CompanyProfileForm(forms.ModelForm):
 class JobApplicationForm(forms.ModelForm):
     class Meta:
         model = JobApplication
-        fields = ['cover_letter']
+        fields = ['cover_letter','class_10th_percentage','class_12th_percentage','class_10th_board','class_12th_board','aggregate_cgpa','resume']
 
 class JobPostingForm(forms.ModelForm):
     class Meta:
