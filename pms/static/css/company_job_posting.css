@@ -1,0 +1,87 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .table-wrap {
+    max-width: 800px;
+    margin: 40px auto;
+    overflow-x: auto;
+  }
+
+  .table-wrap h2{
+    text-shadow: 1px 1px white;
+    color: #062646;
+    font-size: 31px;
+    text-align: center;
+    padding-bottom: 25px;
+  }
+  
+  table,
+  td,
+  th {
+    /*   border: 1px solid #ddd; */
+    text-align: left;
+    font-size: 18px;
+    text-transform: capitalize;
+  }
+  
+  table thead tr {
+    background-color: #071665;
+    color: #fff;
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 16px 16px 0px 0px;
+    overflow: hidden;
+  }
+  
+  table tbody tr td {
+    border: 1px solid #ddd;
+  }
+  
+  th,
+  td {
+    padding: 15px;
+    white-space: nowrap;
+  }
+  
+  table tbody tr:nth-child(odd) {
+    background: #b4b4b442;
+    color: #000;
+    font-weight: 500;
+  }
+  
+  .box-wrap {
+    position: relative;
+    padding: 0px 16px;
+    height: 87vh;
+  }
+  
+  table tbody tr td::last-child {
+    background-color: red;
+  }
+
+  .btn{
+    cursor: pointer;
+    width: 100px;
+    font-size: 17px;
+    padding: 10px 15px;
+    border-radius: 50px;
+  }
+  
+  #post{
+    border-radius: 50px;
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%,-50%);
+    margin-top: 50px;
+    font-size: 19px;
+    width: 15%;
+    padding: 16px 15px;
+}
+
