@@ -6,7 +6,7 @@ from .forms import RegistrationForm,StudentProfileForm,CompanyProfileForm,JobPos
 from .models import StudentProfile,CompanyProfile,JobPosting,JobApplication,CustomUser
 
 def home(request):
-    return render(request,'pms/home.html')
+    return render(request,'pms/home1.html')
 
 def student_dashboard(request):
     #for listing recently posted jobs

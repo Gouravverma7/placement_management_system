@@ -1,29 +1,111 @@
-<h1>Job Applications</h1>
-  <ul>
-    {% for application in job_applications %}
-      <li>
-        <p>Applicant: {{ application.applicant.name }}</p>
-        <p>10th%: {{ application.class_10th_percentage }}</p>
-        <p>12th%: {{ application.class_12th_percentage }}</p>
-        <p>application date: {{ application.application_date }}</p>
-        <p>10th board: {{ application.class_10th_board }}</p>
-        <p>12th board : {{ application.class_12th_board }}</p>
-        <p>aggregate cgpa : {{ application.aggregate_cgpa }}</p>
-        <p>Cover Letter: {{ application.cover_letter }}</p>
-        <p>
-          <a href="{{ application.resume.url }}" download>Download Resume</a>
-        </p>
-        <p>Status: {{ application.status }}</p>
-        <form method="post" action="{% url 'accept_application' application.id %}">
-          {% csrf_token %}
-          <button type="submit">Accept</button>
-        </form>
-        <form method="post" action="{% url 'reject_application' application.id %}">
-          {% csrf_token %}
-          <button type="submit">Reject</button>
-        </form>
-      </li>
-    {% empty %}
-      <p>No job applications available.</p>
-    {% endfor %}
-  </ul>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/job_applications.css' %}">
+    <link rel="stylesheet" href="{% static 'css/job_applications1.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/company_dashboard1.css'%}"> -->
+    <title>Company Pannel</title>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" class="logo">
+            <i class='bx bx-code-alt'></i>
+            <div class="logo-name"><span>Company</span>Panel</div>
+        </a>
+        <ul class="side-menu">
+            <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="{% url 'post_job' %}"><i class='bx bx-analyse'></i>Post New Job</a></li>
+            <li><a href="{% url 'posted_jobs' %}"><i class='bx bx-group'></i>Posted Jobs</a></li>
+            <li  class="active"><a href="{% url 'job_applications' %}"><i class='bx bx-cog'></i>Job Applications</a></li>
+            <li><a href="{% url 'view_company_profile' %}"><i class='bx bx-group'></i>User Profile</a></li>
+            <li><a href="{% url 'edit_company_profile' %}"><i class='bx bx-cog'></i>Edit Profile</a></li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="{% url 'logout' %}" class="logout">
+                    <i class='bx bx-log-out-circle'></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="theme-toggle" hidden>
+            <label for="theme-toggle" class="theme-toggle"></label>
+            <a href="#" class="notif">
+                <i class='bx bx-bell'></i>
+                <span class="count">12</span>
+            </a>
+            <a href="{% url 'view_company_profile' %}" class="profile">
+                <img src="{% if profile_picture %}{{ profile_picture.url }}{% else %}{% static 'images/logo.png' %}{% endif %}"
+                    alt="Profile Picture">
+                <!-- <img src="{{ company_profile.profile_picture.url }}" alt="Company Profile Picture" width="150" height="150"> -->
+            </a>
+        </nav>
+        <!-- End of Navbar -->
+        <!-- Main content -->
+        <div class="container">
+            <h2 id="head">Job Applications</h2>
+            {% for application in job_applications %}
+            <ul class="cards">
+              <li class="card">
+                <div>
+                  <h3 class="card-title">Applicant name : {{ application.applicant.name }}</h3>
+                  <div class="card-content">
+                    <p>10th percent : {{ application.class_10th_percentage }}</p>
+                    <p>12th percent : {{ application.class_12th_percentage }}</p>
+                    <p>application date : {{ application.application_date }}</p>
+                    <p>10th Board : {{ application.class_10th_board }}</p>
+                    <p>12th Board : {{ application.class_12th_board }}</p>
+                    <p>Aggregate CGPA : {{ application.aggregate_cgpa }}</p>
+                    <p>Cover Letter : {{ application.cover_letter }}</p>
+                    <p>Status : {{ application.status }}</p>
+                  </div>
+                </div>
+                <div class="card-link-wrapper">
+                  <a href="{{ application.resume.url }}" class="card-link" download="">Download Resume</a>
+                </div>
+                <form  method="post" action="{% url 'accept_application' application.id %}">
+                  {% csrf_token %}
+                  <button class="resBut" type="submit">Accept</button>
+                </form>
+                <form method="post" action="{% url 'reject_application' application.id %}">
+                  {% csrf_token %}
+                  <button class="resBut" type="submit">Reject</button>
+                </form>
+                
+              </li>
+              {% empty %}
+              <p>No job applications available.</p>
+              {% endfor %}
+            </ul>
+
+            
+            
+          </div>
+    </div>
+    <script src="{% static 'js/job_applications.js'%}"></script>
+    
+</body>
+
+</html>

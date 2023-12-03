@@ -20,7 +20,7 @@
             <div class="logo-name"><span>Company</span>Panel</div>
         </a>
         <ul class="side-menu">
-            <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="{% url 'company_dashboard' %}"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
             <li class="active"><a href="{% url 'post_job' %}"><i class='bx bx-analyse'></i>Post New Job</a></li>
             <li><a href="{% url 'posted_jobs' %}"><i class='bx bx-group'></i>Posted Jobs</a></li>
             <li><a href="{% url 'job_applications' %}"><i class='bx bx-cog'></i>Job Applications</a></li>
