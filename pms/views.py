@@ -6,7 +6,7 @@ from .forms import RegistrationForm,StudentProfileForm,CompanyProfileForm,JobPos
 from .models import StudentProfile,CompanyProfile,JobPosting,JobApplication,CustomUser
 
 def home(request):
-    return render(request,'pms/home1.html')
+    return render(request,'pms/home.html')
 
 def student_dashboard(request):
     #for listing recently posted jobs
@@ -14,7 +14,7 @@ def student_dashboard(request):
     profile_picture = student_profile.profile_picture
     recent_jobs = JobPosting.objects.filter(is_active=True).order_by('-id')[:5]
     
-    return render(request,'pms/student_dashboard.html',{'recent_jobs': recent_jobs,'profile_picture':profile_picture})
+    return render(request,'pms/student_dashboard.html',{'recent_jobs': recent_jobs,'profile_picture':profile_picture,'student_profile':student_profile})
 
 def company_dashboard(request):
     
@@ -232,9 +232,11 @@ def reject_application(request, application_id):
 
 #applied jobs
 def applied_jobs(request):
+    student_profile = StudentProfile.objects.get(user=request.user)
+    profile_picture = student_profile.profile_picture
     if request.user.is_student:
         # Retrieve job applications related to the current student
         job_applications = JobApplication.objects.filter(applicant=request.user.studentprofile)
-        return render(request, 'pms/applied_jobs.html', {'job_applications': job_applications})
+        return render(request, 'pms/applied_jobs.html', {'profile_picture':profile_picture,'student_profile':student_profile,'job_applications': job_applications,})
     else:
         return render(request, 'pms/access_denied.html')
