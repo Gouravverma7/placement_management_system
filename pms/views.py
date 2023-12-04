@@ -182,9 +182,11 @@ def job_listing(request):
 #job application view
 def job_applications(request):
     # Retrieve job applications for the current company (assuming the user is a company)
+    company_profile = CompanyProfile.objects.get(user=request.user)
+    profile_picture = company_profile.profile_picture
     if request.user.is_company:
         job_applications = JobApplication.objects.filter(job__company=request.user.companyprofile)
-        return render(request, 'pms/job_applications.html', {'job_applications': job_applications})
+        return render(request, 'pms/job_applications.html', {'job_applications': job_applications,'company_profile':company_profile,'profile_picture':profile_picture})
     else:
         return render(request, 'access_denied.html') 
     
@@ -192,8 +194,10 @@ def job_applications(request):
 def company_job_postings(request):
     if request.user.is_company:
         # Retrieve job postings associated with the current company
+        company_profile = CompanyProfile.objects.get(user=request.user)
+        profile_picture = company_profile.profile_picture
         job_postings = JobPosting.objects.filter(company=request.user.companyprofile)
-        return render(request, 'pms/company_job_postings.html', {'job_postings': job_postings})
+        return render(request, 'pms/company_job_postings.html', {'job_postings': job_postings,'company_profile':company_profile,'profile_picture':profile_picture})
     else:
         return render(request, 'access_denied.html')
     
