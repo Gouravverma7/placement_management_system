@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{% static 'css/job_applications.css' %}">
-    <link rel="stylesheet" href="{% static 'css/job_applications1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/job_application.css' %}">
+    <link rel="stylesheet" href="{% static 'css/job_application_1.css' %}">
     <!-- <link rel="stylesheet" href="{% static 'css/company_dashboard1.css'%}"> -->
     <title>Company Pannel</title>
 </head>
@@ -66,8 +66,9 @@
         <!-- Main content -->
         <div class="container">
             <h2 id="head">Job Applications</h2>
-            {% for application in job_applications %}
+            
             <ul class="cards">
+              {% for application in job_applications %}
               <li class="card">
                 <div>
                   <h3 class="card-title">Applicant name : {{ application.applicant.name }}</h3>

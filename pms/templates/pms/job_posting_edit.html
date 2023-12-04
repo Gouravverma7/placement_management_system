@@ -1,7 +1,113 @@
-<h2>Edit Job Posting</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Changes</button>
-  </form>
-  <a href="{% url 'posted_jobs' %}">Back to Your Posted Jobs</a>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.6.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="{% static 'css/company_dashboard1.css'%}"> -->
+    <link rel="stylesheet" id="new-styles" href="{% static 'css/job_application_edit_dark.css' %}" disabled="true">
+    <link rel="stylesheet" href="{% static 'css/job_application_edit.css' %}">
+    <link rel="stylesheet" id="old" href="{% static 'css/job_application_edit1.css' %}">
+    <title>Company Pannel</title>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" class="logo">
+            <i class='bx bx-code-alt'></i>
+            <div class="logo-name"><span>Company</span>Panel</div>
+        </a>
+        <ul class="side-menu">
+            <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li><a href="{% url 'post_job' %}"><i class='bx bx-analyse'></i>Post New Job</a></li>
+            <li><a href="{% url 'posted_jobs' %}"><i class='bx bx-group'></i>Posted Jobs</a></li>
+            <li><a href="{% url 'job_applications' %}"><i class='bx bx-cog'></i>Job Applications</a></li>
+            <li><a href="{% url 'view_company_profile' %}"><i class='bx bx-group'></i>User Profile</a></li>
+            <li><a href="{% url 'edit_company_profile' %}"><i class='bx bx-cog'></i>Edit Profile</a></li>
+        </ul>
+        <ul class="side-menu">
+            <li>
+                <a href="{% url 'logout' %}" class="logout">
+                    <i class='bx bx-log-out-circle'></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input">
+                    <input type="search" placeholder="Search...">
+                    <button class="search-btn" type="submit"><i class='bx bx-search'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="theme-toggle" hidden>
+            <label for="theme-toggle" class="theme-toggle"></label>
+            <a href="#" class="notif">
+                <i class='bx bx-bell'></i>
+                <span class="count">12</span>
+            </a>
+            <a href="{% url 'view_company_profile' %}" class="profile">
+                <img src="{% if profile_picture %}{{ profile_picture.url }}{% else %}{% static 'images/logo.png' %}{% endif %}"
+                    alt="Profile Picture">
+                <!-- <img src="{{ company_profile.profile_picture.url }}" alt="Company Profile Picture" width="150" height="150"> -->
+
+            </a>
+        </nav>
+
+        <!-- End of Navbar -->
+        <!-- Main content -->
+        <div id="main">
+            <a class="close" href="{% url 'posted_jobs' %}"><i class="ri-close-circle-line"></i></a>
+            <div id="form">
+                <h1 class="login__title">Edit Posted Jobs</h1>
+                <form action="#" method="post" style="padding: 33.5px 10px">
+                  {% csrf_token %}
+                    <div class="login-inputs">
+                        <div id="top">
+                            <div class="login__box">
+                                <input name="title" type="text" placeholder="Job Title" required class="login__input">
+                            </div>
+                        </div>
+                        <label id="desc-lable" for="jobDescription"></label>
+                        <div class="login__box">
+                            <textarea name="description" id="jobDescription" placeholder="Job Description" name="jobDescription" rows="6"
+                                cols="66" required class="login__input"></textarea>
+                        </div>
+                        <div id="bottom">
+                            <div class="login__box">
+                                <label for="date-time"></label>
+                                <input name="application_deadline"  type="date" placeholder="" id="date-time" required class="login__input"
+                                    pattern="\d{2}-\d{2}-\d{4}">
+                            </div>
+                        </div>
+                        <div class="login__box" id="is-active-box">
+                            <label for="is-active" id="lable">Is Active</label>
+                            <input name="is_active" type="checkbox" placeholder="Is Active"  class="login__input" id="is-active">
+                        </div>
+                    </div>
+                    <button type="submit" class="login__button">Save Changes</button>
+                </form>
+
+            </div>
+        </div>
+        <!-- End of Main content -->
+    </div>
+
+    <script src="{% static 'js/edit_job.js' %}"></script>
+    <script src="{% static 'js/edit_job1.js' %}"></script>
+    <!-- <script src="{% static 'js/company_dashboard1.js'%}"></script> -->
+</body>
+
+</html>

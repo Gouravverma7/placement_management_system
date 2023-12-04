@@ -50,10 +50,12 @@
             <path d="M13.73 21a2 2 0 0 1-3.46 0" />
           </svg>
         </button>
-        <button class="profile-btn">
-          <img src="{% if profile_picture %}{{ profile_picture.url }}{% else %}{% static 'images/logo.png' %}{% endif %}" />
-          <span>{{student_profile.name}}</span>
-        </button>
+        <a  style="text-decoration: none;"href= "{% url 'view_student_profile' %}">
+          <button class="profile-btn">
+            <img src="{% if profile_picture %}{{ profile_picture.url }}{% else %}{% static 'images/logo.png' %}{% endif %}" />
+            <span>{{student_profile.name}}</span>
+          </button>
+          </a>
       </div>
       <button class="messages-btn">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -103,14 +105,7 @@
           </svg>
         </a>
         <a href="{% url 'logout' %}" class="app-sidebar-link">
-          <svg class="link-icon" xmlns="http://www.w3.org/2001/svg" width="24" height="24" fill="none"
-            stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            class="feather feather-settings" viewBox="0 0 24 24">
-            <defs />
-            <circle cx="12" cy="12" r="3" />
-            <path
-              d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
-          </svg>
+          <svg class="link-icon" style="width:27px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"> <g> <path fill="none" d="M0 0h24v24H0z"/> <path d="M5 11h8v2H5v3l-5-4 5-4v3zm-1 7h2.708a8 8 0 1 0 0-12H4A9.985 9.985 0 0 1 12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10a9.985 9.985 0 0 1-8-4z"/> </g> </svg>
         </a>
       </div>
       <!-- start content -->
@@ -143,19 +138,21 @@
           </div>
         </div>
         <div class="project-boxes jsGridView">
+          {% for application in job_applications %}
           <div class="project-box-wrapper">
             <div class="project-box" style="background-color: #fee4cb;">
-              {% for application in job_applications %}
+              
               <div class="project-box-content-header">
                 <p class="box-content-header">{{ application.job.title }}</p>
                 <p class="box-content-header">{{ application.cover_letter }}</p>
                 <p class="box-content-header">{{ application.status }}</p>
               </div>
-              {% empty %}
-              <p>No job applications available.</p>
-              {% endfor %}
+              
             </div>
-          </div>    
+          </div>
+          {% empty %}
+              <p>No job applications available.</p>
+              {% endfor %}   
         </div>
       </div>
       <!-- end  -->

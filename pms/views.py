@@ -89,7 +89,8 @@ def view_student_profile(request):
 @login_required
 def edit_student_profile(request):
     student_profile = StudentProfile.objects.get(user=request.user)
-    
+   
+    profile_picture = student_profile.profile_picture
 
     if request.method == 'POST':
         form = StudentProfileForm(request.POST,request.FILES, instance=student_profile)
@@ -99,7 +100,7 @@ def edit_student_profile(request):
     else:
         form = StudentProfileForm(instance=student_profile)
 
-    return render(request, 'pms/edit_student_profile.html', {'form': form})
+    return render(request, 'pms/edit_student_profile.html', {'form': form,'profile_picture':profile_picture,'student_profile':student_profile})
 
 
 #view for company profiles
@@ -173,8 +174,10 @@ def apply_for_job(request, job_id):
     
 #job listing view for students 
 def job_listing(request):
+    student_profile = StudentProfile.objects.get(user=request.user)
+    profile_picture = student_profile.profile_picture
     job_postings = JobPosting.objects.filter(is_active=True)  # Retrieve active job postings
-    return render(request, 'pms/job_listing.html', {'job_postings': job_postings})
+    return render(request, 'pms/job_listing.html', {'profile_picture':profile_picture,'student_profile':student_profile,'job_postings': job_postings})
 
 #job application view
 def job_applications(request):
