@@ -134,8 +134,8 @@
                             {% for application in recent_applications %}
                             <tr>
                                 <td>
-                                    <img src="{{ application.applicant.profile_picture.url }}">
                                     
+                                    <img src="{% if application.applicant.profile_picture %} {{ application.applicant.profile_picture.url}} {% else %}{% static 'images/logo.png' %}{% endif %}">
                                     <p>{{ application.applicant.user.username }}</p>
                                     
                                 </td>
